@@ -7,7 +7,8 @@ const QuizList = () => {
   let [score, setScore] = useState(0);
   let [showScore, setShowScore] = useState(false);
   let [submit, setSubmit] = useState(false);
-  let [timer, setTimer] = useState(30);
+  let [timer, setTimer] = useState(1);
+  let [second, setSecond] = useState(0);
   let [stop, setStop] = useState(false);
   let { question, option, id, answer } = data[currentQuiz];
 
@@ -34,18 +35,21 @@ const QuizList = () => {
       }
     }
   };
-  const time = () => {
-    if (timer !== 0) {
-      setTimer(timer - 1);
-    } else setStop(true);
-  };
-
   useEffect(() => {
-    const set = setInterval(time, 1000);
+    let totalSecond = timer * 60;
+    const set = setInterval(() => {
+      if (totalSecond > 0) {
+        totalSecond -= 1;
+        const min = Math.floor(totalSecond / 60);
+        const sec = totalSecond % 60;
+        setTimer(min);
+        setSecond(sec);
+      } else setStop(true);
+    }, 1000);
     return () => {
       clearInterval(set);
     };
-  });
+  }, []);
 
   return (
     <div>
@@ -59,7 +63,9 @@ const QuizList = () => {
         <div className="quiz-container">
           <div className="header">
             <p>QUESTION {currentQuiz + 1}</p>
-            <p>{timer}</p>
+            <p>
+              {timer}:{second}
+            </p>
           </div>
           <h2>QUIZ TIME!!!</h2>
           <div className="question-container">{question}</div>
