@@ -16,7 +16,7 @@ const QuizList = () => {
       ...select,
       [questionId]: optionId,
     }));
-    setSubmit(!submit);
+    setSubmit(true);
   }
 
   const handleSubmit = (e) => {
