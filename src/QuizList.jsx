@@ -51,7 +51,9 @@ const QuizList = () => {
     <div>
       {stop || showScore ? (
         <div className="score">
-          Your score is {score} out of {data.length}!!!
+          <p>Your Score is</p>
+          <h1>{score}</h1>
+          <p> out of {data.length}!!!</p>
         </div>
       ) : (
         <div className="quiz-container">
